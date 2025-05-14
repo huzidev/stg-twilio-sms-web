@@ -1,7 +1,7 @@
-import { fromNow } from "../../js/util"
 import { CopyOutlined } from "@ant-design/icons"
+import React from "react"
+import { copyToClipboard, fromNow } from "../../js/util"
 import { MediaViewer } from "../MediaViewer/MediaViewer"
-import { copyToClipboard } from "../../js/util"
 
 /**
  * @typedef {import("../../js/types").Message} Message
@@ -56,7 +56,14 @@ export const MessageInfo = ({ message }) => (
         <b>Attachments:</b> {message.media}
       </span>
     </div>
-    <div>{message.body}</div>
+    <div>
+      {message.body.split("\n").map((line, index) => (
+        <React.Fragment key={index}>
+          {line}
+          <br />
+        </React.Fragment>
+      ))}
+    </div>
     <div className="mt-2 flex justify-center flex-wrap">
       <MediaViewer messageSid={message.messageSid} />
     </div>

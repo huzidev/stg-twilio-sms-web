@@ -1,12 +1,10 @@
+import { CheckCircleFilled, LoadingOutlined } from "@ant-design/icons"
 import { useEffect, useState } from "react"
-import { Layout } from "../Layout/Layout"
+import { useNavigate, useParams } from "react-router-dom"
 import { getTwilioMessage } from "../../js/getTwilioMessages"
-import { useParams } from "react-router-dom"
-import { MessageInfo } from "../MessageInfo/MessageInfo"
-import { LoadingOutlined } from "@ant-design/icons"
 import { ErrorLabel } from "../ErrorLabel/ErrorLabel"
-import { CheckCircleFilled } from "@ant-design/icons"
-import { useNavigate } from "react-router-dom"
+import { Layout } from "../Layout/Layout"
+import { MessageInfo } from "../MessageInfo/MessageInfo"
 
 /**
  * @typedef {import("../../js/types").Message} Message
@@ -19,6 +17,9 @@ import { useNavigate } from "react-router-dom"
  */
 const MessagePanel = ({ message }) => {
   const navigate = useNavigate()
+
+  console.log("SW what is message", message);
+
   return (
     <>
       <MessageInfo message={message} />

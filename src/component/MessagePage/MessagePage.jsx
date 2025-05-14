@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react"
-import { Layout } from "../Layout/Layout"
-import { getTwilioMessage } from "../../js/getTwilioMessages"
-import { useNavigate, useParams } from "react-router-dom"
-import { MessageInfo } from "../MessageInfo/MessageInfo"
 import { LoadingOutlined } from "@ant-design/icons"
+import { useEffect, useState } from "react"
+import { useNavigate, useParams } from "react-router-dom"
+import { getTwilioMessage } from "../../js/getTwilioMessages"
 import { ErrorLabel } from "../ErrorLabel/ErrorLabel"
+import { Layout } from "../Layout/Layout"
+import { MessageInfo } from "../MessageInfo/MessageInfo"
 
 /**
  * @typedef {import("../../js/types").Message} Message
@@ -19,6 +19,8 @@ const MessagePanel = ({ message }) => {
   const navigate = useNavigate()
   const isReceived = message.direction === "received"
   const isSent = message.direction === "sent"
+  console.log("SW what is message", message);
+
   return (
     <>
       <MessageInfo message={message} />

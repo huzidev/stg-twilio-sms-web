@@ -1,10 +1,11 @@
-import { InboxOutlined, SendOutlined } from "@ant-design/icons"
-import { fromNow } from "../../js/util"
+import { InboxOutlined, LoadingOutlined, SendOutlined } from "@ant-design/icons"
 import { isEmpty } from "lodash"
-import { MessageDirection } from "../../js/types"
-import { MediaViewer } from "../MediaViewer/MediaViewer"
-import { LoadingOutlined } from "@ant-design/icons"
+import React from "react"
 import { useNavigate } from "react-router"
+import { MessageDirection } from "../../js/types"
+import { fromNow } from "../../js/util"
+import { MediaViewer } from "../MediaViewer/MediaViewer"
+
 /**
  * @typedef {import("../../js/types").Message} Message
  */
@@ -75,7 +76,16 @@ const MessageRow = (message, onClick) => {
             {message.direction} {fromNow(message.date)}
           </span>
         </div>
-        <div className="line-clamp-3">{messageBody(message)}</div>
+        <div className="line-clamp-3">
+          {messageBody(message)
+            .split("\n")
+            .map((line, index) => (
+              <React.Fragment key={index}>
+                {line}
+                <br />
+              </React.Fragment>
+            ))}
+        </div>
         {message.media > 0 && (
           <div className="flex justify-center mb-2">
             <MediaViewer messageSid={message.messageSid} thumbnail="true" />
