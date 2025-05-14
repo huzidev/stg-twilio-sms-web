@@ -1,5 +1,5 @@
 import axios from "axios"
-import { getAuthentication, toCredentials } from "../context/AuthenticationProvider"
+import { toCredentials } from "../context/AuthenticationProvider"
 
 const cache = new Map()
 
@@ -7,16 +7,19 @@ const cache = new Map()
  * @param {string} messageSid
  * @returns {Promise<string>} public url for the media
  */
+
+const ACCOUNT_SID = import.meta.env.VITE_ACCOUNT_SID
+const AUTH_TOKEN = import.meta.env.VITE_AUTH_TOKEN
+
 export const getTwilioMedia = async messageSid => {
-  const authentication = getAuthentication()
   if (cache.has(messageSid)) {
     return cache.get(messageSid)
   }
 
   let result = []
-  const url = `https://api.twilio.com/2010-04-01/Accounts/${authentication.accountSid}/Messages/${messageSid}/Media.json`
+  const url = `https://api.twilio.com/2010-04-01/Accounts/${ACCOUNT_SID}/Messages/${messageSid}/Media.json`
   const response = await axios.get(url, {
-    auth: toCredentials(authentication),
+    auth: toCredentials(ACCOUNT_SID, AUTH_TOKEN),
   })
   if (response?.data?.media_list?.length > 0) {
     result = response.data.media_list.map(m => {

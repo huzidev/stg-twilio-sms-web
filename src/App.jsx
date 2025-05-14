@@ -1,11 +1,7 @@
 import { HashRouter, Route, Routes } from "react-router-dom"
 
 import Login from "./component/Auth/Login"
-import { AuthenticatedLoggedInRoute } from "./component/AuthenticatedLoggedInRoute/AuthenticatedLoggedInRoute"
 import { AuthenticatedRoute } from "./component/AuthenticatedRoute/AuthentiatedRoute"
-import { AuthenticationApiKeyPage } from "./component/AuthenticationApiKeyPage/AuthenticationApiKeyPage"
-import { AuthenticationAuthTokenPage } from "./component/AuthenticationAuthTokenPage/AuthenticationAuthTokenPage"
-import { AuthenticationPage } from "./component/AuthenticationPage/AuthenticationPage"
 import { ConversationPage } from "./component/ConversationPage/ConversationPage"
 import { InboxPage } from "./component/InboxPage/InboxPage"
 import { MessagePage } from "./component/MessagePage/MessagePage"
@@ -28,8 +24,7 @@ export const App = () => {
           <HashRouter>
             <Routes>
               <Route path="/login" element={<Login />} />
-
-              <Route
+              {/* <Route
                 path="/"
                 element={
                   <AuthenticatedLoggedInRoute>
@@ -59,6 +54,15 @@ export const App = () => {
                   <AuthenticatedLoggedInRoute>
                     <AuthenticationApiKeyPage />
                   </AuthenticatedLoggedInRoute>
+                }
+              /> */}
+
+              <Route
+                path="/"
+                element={
+                  <AuthenticatedRoute>
+                    <InboxPage />
+                  </AuthenticatedRoute>
                 }
               />
 

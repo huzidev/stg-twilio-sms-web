@@ -30,24 +30,13 @@ export class Authentication {
 /**
  * @param {Authentication} authentication
  */
-export const toCredentials = authentication => {
-  switch (authentication.method) {
-    case AuthenticationMethod.API_KEY:
-      return {
-        username: authentication.apiKey,
-        password: authentication.apiSecret,
-        method: authentication.method,
-      }
-    case AuthenticationMethod.AUTH_TOKEN:
-      return {
-        username: authentication.accountSid,
-        password: authentication.authToken,
-        method: authentication.method,
-      }
-    default:
-      return new Authentication()
+
+export const toCredentials = (accountSid, authToken) => {
+  return {
+    username: accountSid,
+    password: authToken,
   }
-}
+};
 
 /**
  * Maps authentication errors to more user-friendly error messages.

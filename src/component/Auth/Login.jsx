@@ -18,7 +18,7 @@ export default function Login() {
       if (username === "SigWorksAdminPak" && password === "X9b!7pT#AmZ4&jR1") {
         console.log("Redirecting to /authentication")
         localStorage.setItem("isLoggedIn", "true")
-        navigate("/authentication")
+        navigate("/inbox")
       } else {
         setError("Invalid credentials")
       }
@@ -28,7 +28,7 @@ export default function Login() {
 
   useEffect(() => {
     if (isLoggedIn) {
-      navigate("/authentication")
+      navigate("/inbox")
     }
   }, [])
 

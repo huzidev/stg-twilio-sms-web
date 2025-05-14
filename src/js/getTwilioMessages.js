@@ -1,5 +1,5 @@
 import axios from "axios"
-import { getAuthentication, toCredentials } from "../context/AuthenticationProvider"
+import { toCredentials } from "../context/AuthenticationProvider"
 import { MessageDirection } from "./types"
 
 /**
@@ -23,10 +23,13 @@ export const sortByDate = (a, b) => (Date.parse(a.date) > Date.parse(b.date) ? -
  * @param {string} phoneNumber
  * @returns {Array<Message>}
  */
+
+const ACCOUNT_SID = import.meta.env.VITE_ACCOUNT_SID
+const AUTH_TOKEN = import.meta.env.VITE_AUTH_TOKEN
+
 export const getTwilioMessagesByPhoneNumber = async phoneNumber => {
-  const authentication = getAuthentication()
-  const credentials = toCredentials(authentication)
-  const url = `https://api.twilio.com/2010-04-01/Accounts/${authentication.accountSid}/Messages.json`
+  const credentials = toCredentials(ACCOUNT_SID, AUTH_TOKEN)
+  const url = `https://api.twilio.com/2010-04-01/Accounts/${ACCOUNT_SID}/Messages.json`
   const fromResult = await axios.get(url, {
     auth: credentials,
     params: { From: phoneNumber },
@@ -42,9 +45,8 @@ export const getTwilioMessagesByPhoneNumber = async phoneNumber => {
  * @returns {Promise<Array<Message>>}
  */
 export const getTwilioMessages = async (from = "", to = "") => {
-  const authentication = getAuthentication()
-  const credentials = toCredentials(authentication)
-  const url = `https://api.twilio.com/2010-04-01/Accounts/${authentication.accountSid}/Messages.json`
+  const credentials = toCredentials(ACCOUNT_SID, AUTH_TOKEN)
+  const url = `https://api.twilio.com/2010-04-01/Accounts/${ACCOUNT_SID}/Messages.json`
 
   const params = {}
   if (to.length > 0) {
@@ -67,9 +69,8 @@ export const getTwilioMessages = async (from = "", to = "") => {
  * @returns {Promise<Message>}
  */
 export const getTwilioMessage = async (messageSid = "") => {
-  const authentication = getAuthentication()
-  const credentials = toCredentials(authentication)
-  const url = `https://api.twilio.com/2010-04-01/Accounts/${authentication.accountSid}/Messages/${messageSid}.json`
+  const credentials = toCredentials(ACCOUNT_SID, AUTH_TOKEN)
+  const url = `https://api.twilio.com/2010-04-01/Accounts/${ACCOUNT_SID}/Messages/${messageSid}.json`
 
   const response = await axios.get(url, {
     auth: credentials,

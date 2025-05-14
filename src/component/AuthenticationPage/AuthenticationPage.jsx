@@ -1,5 +1,5 @@
-import { AuthenticationMethod } from "../../context/AuthenticationProvider"
 import { useNavigate } from "react-router-dom"
+import { AuthenticationMethod } from "../../context/AuthenticationProvider"
 import { AuthenticationMethodCard } from "../AuthenticationMethodCard/AuthenticationMethodCard"
 import { LayoutWithoutNavBar } from "../Layout/Layout"
 

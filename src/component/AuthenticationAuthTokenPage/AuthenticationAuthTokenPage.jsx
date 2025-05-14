@@ -1,20 +1,22 @@
-import { ErrorLabel } from "../ErrorLabel/ErrorLabel"
-import { AuthenticationAuthTokenView } from "./AuthenticationAuthTokenPageView"
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import {
   Authentication,
   AuthenticationMethod,
   mapAuthenticationError,
   useAuthentication,
 } from "../../context/AuthenticationProvider"
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
 import { validatePermission } from "../../js/validateTwilioPermission"
+import { ErrorLabel } from "../ErrorLabel/ErrorLabel"
 import { LayoutWithoutNavBar } from "../Layout/Layout"
+import { AuthenticationAuthTokenView } from "./AuthenticationAuthTokenPageView"
+
+const AUTH_TOKEN = import.meta.env.VITE_AUTH_TOKEN
 
 export const AuthenticationAuthTokenPage = () => {
   const [authentication, setAuthentication] = useAuthentication()
   const [accountSid, setAccountSid] = useState(authentication.accountSid)
-  const [authToken, setAuthToken] = useState(authentication.authToken)
+  const [authToken, setAuthToken] = useState(AUTH_TOKEN)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const navigate = useNavigate()

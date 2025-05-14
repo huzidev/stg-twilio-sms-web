@@ -1,13 +1,15 @@
-import axios from "axios"
-import { isAxiosError } from "axios"
+import axios, { isAxiosError } from "axios"
 import { getAuthentication, toCredentials } from "../context/AuthenticationProvider"
 import { getOrCreateService } from "./getTwilioService"
 
 const TWILIO_SMS_WEB = "twilio_sms_web"
 
+const ACCOUNT_SID = import.meta.env.VITE_ACCOUNT_SID
+const AUTH_TOKEN = import.meta.env.VITE_AUTH_TOKEN
+
 const getDocument = (authentication, serviceSid) => {
   return axios.get(`https://sync.twilio.com/v1/Services/${serviceSid}/Documents/${TWILIO_SMS_WEB}`, {
-    auth: toCredentials(authentication),
+    auth: toCredentials(ACCOUNT_SID, AUTH_TOKEN),
   })
 }
 
@@ -16,7 +18,7 @@ const createDocument = (authentication, serviceSid) => {
   data.append("UniqueName", TWILIO_SMS_WEB)
   data.append("Data", "{}")
   return axios.post(`https://sync.twilio.com/v1/Services/${serviceSid}/Documents`, data, {
-    auth: toCredentials(authentication),
+    auth: toCredentials(ACCOUNT_SID, AUTH_TOKEN),
   })
 }
 

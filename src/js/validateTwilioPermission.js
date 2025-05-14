@@ -1,6 +1,6 @@
-import { buildUrl } from "./getTwilioPhoneNumbers"
-import { Authentication, toCredentials } from "../context/AuthenticationProvider"
 import axios from "axios"
+import { Authentication, toCredentials } from "../context/AuthenticationProvider"
+import { buildUrl } from "./getTwilioPhoneNumbers"
 
 /**
  * We want to get phone numbers after sign-in because at minimum we want to know
@@ -10,8 +10,12 @@ import axios from "axios"
  *
  * @param {Authentication} authentication
  */
+
+const ACCOUNT_SID = import.meta.env.VITE_ACCOUNT_SID
+const AUTH_TOKEN = import.meta.env.VITE_AUTH_TOKEN
+
 export const validatePermission = async (authentication = new Authentication()) => {
-  await axios.get(buildUrl(authentication.accountSid), {
-    auth: toCredentials(authentication),
+  await axios.get(buildUrl(ACCOUNT_SID), {
+    auth: toCredentials(ACCOUNT_SID, AUTH_TOKEN),
   })
 }

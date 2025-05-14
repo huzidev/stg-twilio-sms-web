@@ -3,11 +3,14 @@ import { toCredentials } from "../context/AuthenticationProvider"
 
 const TWILIO_SMS_WEB = "twilio_sms_web"
 
+const ACCOUNT_SID = import.meta.env.VITE_ACCOUNT_SID
+const AUTH_TOKEN = import.meta.env.VITE_AUTH_TOKEN
+
 const createService = authentication => {
   const data = new URLSearchParams()
   data.append("FriendlyName", TWILIO_SMS_WEB)
   return axios.post("https://sync.twilio.com/v1/Services", data, {
-    auth: toCredentials(authentication),
+    auth: toCredentials(ACCOUNT_SID, AUTH_TOKEN),
   })
 }
 
@@ -17,7 +20,7 @@ const getService = async authentication => {
     return serviceCache
   }
   const services = await axios.get("https://sync.twilio.com/v1/Services?PageSize=50", {
-    auth: toCredentials(authentication),
+    auth: toCredentials(ACCOUNT_SID, AUTH_TOKEN),
   })
   serviceCache = services.data.services.filter(s => s.friendly_name === "twilio_sms_web")[0]
   return serviceCache

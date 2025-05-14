@@ -1,9 +1,12 @@
 import axios from "axios"
-import { Authentication, getAuthentication, toCredentials } from "../context/AuthenticationProvider"
 import { isEmpty } from "lodash"
+import { Authentication, getAuthentication, toCredentials } from "../context/AuthenticationProvider"
+
+const ACCOUNT_SID = import.meta.env.VITE_ACCOUNT_SID
+const AUTH_TOKEN = import.meta.env.VITE_AUTH_TOKEN
 
 export const buildUrl = (accountSid = "", pageSize = 8, pageNumber = 0) =>
-  `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/IncomingPhoneNumbers.json?Beta=false&PageSize=${pageSize}&Page=${pageNumber}`
+  `https://api.twilio.com/2010-04-01/Accounts/${ACCOUNT_SID}/IncomingPhoneNumbers.json?Beta=false&PageSize=${pageSize}&Page=${pageNumber}`
 
 /**
  * Represents a collection of incoming phone numbers and pagination details.
@@ -43,8 +46,8 @@ const getTwilioPhoneNumbersResursively = async (
   pageSize = 50,
   accumulator = [],
 ) => {
-  const currentPage = await axios.get(buildUrl(authentication.accountSid, pageSize, accumulator.length), {
-    auth: toCredentials(authentication),
+  const currentPage = await axios.get(buildUrl(ACCOUNT_SID, pageSize, accumulator.length), {
+    auth: toCredentials(ACCOUNT_SID, AUTH_TOKEN),
   })
   const pages = [...accumulator, currentPage]
 
