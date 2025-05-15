@@ -46,12 +46,11 @@ export const SendPage = () => {
   const isValid = () => {
     const isValidFrom = phoneNumbers.includes(from)
     const isValidTo = to.match(phonePattern) !== null
-    const isValidMessage = message.length > 0 && message.length < 500
+    const isValidMessage = message.length > 0 && message.length < 1001
     return !sendingMessage && isValidFrom && isValidTo && isValidMessage
   }
 
   const hint = `Send a message from  ${from === "" ? "?" : from}  to  ${to === "" ? "?" : to}`
-
   return (
     <Layout>
       <h3>Send</h3>
@@ -76,13 +75,13 @@ export const SendPage = () => {
         placeholder={hint}
         onChange={i => setMessage(i.target.value)}
         minLength="1"
-        maxLength="500"
+        maxLength="1000"
         disabled={sendingMessage}
         rows="5"
       ></textarea>
       <div className="flex justify-between text-xs font-thin mb-2">
-        <p>Messages must be between 1 and 500 characters.</p>
-        <p>{message.length} / 500</p>
+        <p>Messages must be between 1 and 1000 characters.</p>
+        <p>{message.length} / 1000</p>
       </div>
       <button className="float-right" onClick={handleSend} disabled={!isValid()}>
         {!sendingMessage && "Send"}
