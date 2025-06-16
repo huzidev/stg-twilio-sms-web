@@ -4,8 +4,6 @@ import { Authentication, toCredentials } from "../context/AuthenticationProvider
 const ACCOUNT_SID = import.meta.env.VITE_ACCOUNT_SID
 const AUTH_TOKEN = import.meta.env.VITE_AUTH_TOKEN
 
-console.log("SW what is ACCOUNT_SID,AUTH_TOKEN", ACCOUNT_SID, AUTH_TOKEN);
-
 export const sendTwilioMessage = async (authentication = new Authentication(), to = "", from = "", body = "") => {
   const credentials = toCredentials(ACCOUNT_SID, AUTH_TOKEN)
 

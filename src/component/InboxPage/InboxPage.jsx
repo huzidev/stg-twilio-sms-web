@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
+import { getTwilioPhoneNumbers } from "../../js/getTwilioPhoneNumbers"
+import { ErrorLabel } from "../ErrorLabel/ErrorLabel"
 import { Layout } from "../Layout/Layout"
 import { MessageRows } from "../MessageRows/MessageRows"
-import { allPhones, MessageFilterEnum, Selector } from "./Selector"
-import { getTwilioPhoneNumbers } from "../../js/getTwilioPhoneNumbers"
 import { getMessages } from "./getMessages"
-import { ErrorLabel } from "../ErrorLabel/ErrorLabel"
+import { allPhones, MessageFilterEnum, Selector } from "./Selector"
 
 export const InboxPage = () => {
   const [messages, setMessages] = useState([])
@@ -14,6 +14,7 @@ export const InboxPage = () => {
   const [loadingPhones, setLoadingPhones] = useState(true)
   const [messageFilter, setMessageFilter] = useState(MessageFilterEnum.all)
   const [error, setError] = useState(null)
+  const [statusFilter, setStatusFilter] = useState("all")
 
   useEffect(() => {
     const run = async () => {
@@ -42,14 +43,36 @@ export const InboxPage = () => {
       <h3>Inbox</h3>
       <p className="my-4">Your messages are displayed on this page, with the most recent ones at the top.</p>
       <ErrorLabel error={error} className="mb-4" />
-      <Selector
-        phoneNumbers={phoneNumbers}
-        phoneNumber={phoneNumber}
-        loading={loadingPhones}
-        onMessageFilterChange={setMessageFilter}
-        onPhoneNumberChange={setPhoneNumber}
+      <div className="flex flex-wrap gap-4 mb-4">
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+          <Selector
+            phoneNumbers={phoneNumbers}
+            phoneNumber={phoneNumber}
+            loading={loadingPhones}
+            onMessageFilterChange={setMessageFilter}
+            onPhoneNumberChange={setPhoneNumber}
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Status Filter</label>
+          <select
+            value={statusFilter}
+            onChange={e => setStatusFilter(e.target.value)}
+            className="border px-3 py-2 rounded-md text-sm"
+          >
+            <option value="all">All</option>
+            <option value="delivered">Delivered</option>
+            <option value="undelivered">Undelivered</option>
+          </select>
+        </div>
+      </div>
+
+      <MessageRows
+        loading={loadingMessages}
+        messages={statusFilter === "all" ? messages : messages.filter(msg => msg.status === statusFilter)}
       />
-      <MessageRows loading={loadingMessages} messages={messages} />
     </Layout>
   )
 }

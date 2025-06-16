@@ -1,4 +1,4 @@
-import { GithubOutlined, InboxOutlined, SendOutlined, FileTextFilled } from "@ant-design/icons"
+import { FileTextFilled, GithubOutlined, InboxOutlined, SendOutlined } from "@ant-design/icons"
 import { useNavigate } from "react-router-dom"
 
 const termsAndConditionsUrl = import.meta.env.VITE_TERMS_AND_CONDITIONS_URL
@@ -24,6 +24,10 @@ const NavBar = () => {
     navigate("/send")
   }
 
+  const navigateToSendBulk = () => {
+    navigate("/send-bulk")
+  }
+
   return (
     <>
       <nav className="flex text-white px-1 sm:px-4">
@@ -35,6 +39,10 @@ const NavBar = () => {
           <NavItem onClick={navigateToSend}>
             <SendOutlined className="text-lg" />
             <span className="mt-1">Send</span>
+          </NavItem>
+          <NavItem onClick={navigateToSendBulk}>
+            <SendOutlined className="text-lg" />
+            <span className="mt-1">Send Bulk</span>
           </NavItem>
         </div>
         <div className="grow flex justify-center items-center text-lg">Twilio SMS Web</div>

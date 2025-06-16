@@ -6,6 +6,7 @@ import { ConversationPage } from "./component/ConversationPage/ConversationPage"
 import { InboxPage } from "./component/InboxPage/InboxPage"
 import { MessagePage } from "./component/MessagePage/MessagePage"
 import { NotFoundPage } from "./component/NotFoundPage/NotFoundPage"
+import { SendBulkPage } from "./component/SendBulkPage/SendBulkPage"
 import { SendPage } from "./component/SendPage/SendPage"
 import { SentPage } from "./component/SentPage/SentPage"
 import { UiPage } from "./component/UiPage/UiPage"
@@ -103,6 +104,14 @@ export const App = () => {
                 element={
                   <AuthenticatedRoute>
                     <SendPage />
+                  </AuthenticatedRoute>
+                }
+              />
+              <Route
+                path="/send-bulk"
+                element={
+                  <AuthenticatedRoute>
+                    <SendBulkPage />
                   </AuthenticatedRoute>
                 }
               />
