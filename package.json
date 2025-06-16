@@ -1,8 +1,9 @@
 {
-  "name": "stg-twilio-sms-web",
+  "name": "my-vite-app",
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://rafasantos.github.io/twilio-sms-web/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -18,6 +19,7 @@
     "@ant-design/icons": "^4.8.3",
     "axios": "^1.7.9",
     "dayjs": "^1.11.13",
+    "papaparse": "^5.5.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.1.1"
