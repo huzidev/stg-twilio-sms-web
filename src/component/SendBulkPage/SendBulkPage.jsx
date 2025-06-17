@@ -132,7 +132,7 @@ export const SendBulkPage = () => {
     }
   
     const hasCsvRecipients = extractedPhoneNumbers.length > 0;
-  
+
     if (hasCsvRecipients) {
       const allValid = extractedPhoneNumbers.every(num => pattern.test(num));
       return allValid;
