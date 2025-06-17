@@ -78,24 +78,26 @@ export const SendBulkPage = () => {
     });
   };
 
+  const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
   const handleSend = async () => {
     if (sendingMessage) return;
-  
+
     setSendingMessage(true);
     setError(null);
-  
+
     const recipients = extractedPhoneNumbers.length > 0 ? extractedPhoneNumbers : [to];
-  
+
     try {
-      // For single recipient (no CSV)
       if (recipients.length === 1) {
         const messageSid = await sendTwilioMessage(authentication, recipients[0], from, message);
         navigate(`/sent/${messageSid}`);
       } else {
-        // For multiple recipients (from CSV)
         const messageSids = [];
-  
-        for (const recipient of recipients) {
+
+        for (let i = 0; i < recipients.length; i++) {
+          const recipient = recipients[i];
+
           try {
             const sid = await sendTwilioMessage(authentication, recipient, from, message);
             messageSids.push({ recipient, sid });
@@ -103,9 +105,12 @@ export const SendBulkPage = () => {
             console.error(`Failed to send to ${recipient}:`, err);
             messageSids.push({ recipient, sid: null, error: true });
           }
+
+          if ((i + 1) % 10 === 0 && i !== recipients.length - 1) {
+            await delay(3000);
+          }
         }
-  
-        // Optional: store this in state or redirect somewhere
+
         navigate(`/inbox`);
       }
     } catch (err) {
